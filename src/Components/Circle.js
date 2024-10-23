@@ -17,7 +17,7 @@ const Circle = () => {
       >
         {/* Circle 1 */}
         <div style={{ textAlign: 'center' }}>
-          <a href="/cleanser" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <a href="/Cleanser" style={{ textDecoration: 'none', color: 'inherit' }}>
             <div
               style={{
                 width: '120px',

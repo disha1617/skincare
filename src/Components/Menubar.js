@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,11 +8,11 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
+// import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+// import AdbIcon from '@mui/icons-material/Adb';
 
 const pages = ['Home', 'Blog', 'About Us'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -36,10 +37,10 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static" style={{ backgroundColor: "transparent", boxShadow: 'none' }}> {/* Set boxShadow to none */}
+    <AppBar position="static" style={{ backgroundColor: "transparent", boxShadow: 'none' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-
+          {/* IconButton for mobile view menu */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -69,81 +70,48 @@ function ResponsiveAppBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                  <Typography textAlign="center">
+                    <Link to={`/${page.toLowerCase().replace(/\s+/g, '')}`} style={{ textDecoration: 'none', color: 'black' }}>
+                      {page}
+                    </Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          ></Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'black', display: 'block' }} // Changed color to black
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
 
-          {/* Updated styling for "Aura" */}
+          {/* Centered "Aura" title */}
           <Typography
             variant="h4"
             sx={{
-              marginRight: '45%',
-              color: 'black', // Font color changed to black
-              fontFamily: 'IM FELL DW Pica', // Font family updated for "Aura"
+              flexGrow: 1,
+              display: { xs: 'flex', md: 'flex' },
+              justifyContent: 'center',
+              color: 'black',
+              fontFamily: 'IM FELL DW Pica',
+              marginLeft:'250px'
             }}
           >
             Aura
           </Typography>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+          {/* Right-aligned navigation links for desktop */}
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            {pages.map((page) => (
+              <Button
+                key={page}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'black', display: 'block' }}
+              >
+                <Link  to={`/${page.toLowerCase().replace(/\s+/g, '')}`} style={{ textDecoration: 'none', color: 'black' ,marginRight:"20px"}}>
+                  {page}
+                </Link>
+              </Button>
+            ))}
           </Box>
+
+          
+          
         </Toolbar>
       </Container>
     </AppBar>
